@@ -1,0 +1,27 @@
+{
+  "name": "devops-fundamentos-aidjr05",
+  "version": "1.0.0",
+  "description": "Proyecto práctico para aprender fundamentos de DevOps, CI y CD con GitHub Actions y GitHub Pages (AIDJR Gen 05).",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "build": "node scripts/build.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "preview": "npx --yes serve dist"
+  },
+  "keywords": [
+    "devops",
+    "ci-cd",
+    "github-actions",
+    "github-pages",
+    "aidjr"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}

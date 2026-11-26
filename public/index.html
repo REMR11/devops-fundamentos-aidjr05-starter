@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fundamentos de DevOps · AIDJR Gen 05</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <span class="badge">AIDJR Gen 05 · Clase 11</span>
+        <h1>Mi primer sitio con CI/CD en GitHub</h1>
+        <p>
+          Esta pequeña app se prueba automáticamente con
+          <strong>GitHub Actions (CI)</strong> y se publica en
+          <strong>GitHub Pages (CD)</strong> cada vez que actualizamos
+          <code>main</code>.
+        </p>
+      </header>
+
+      <section class="card">
+        <h2>Prueba rápida en vivo</h2>
+        <label for="input-nombre">Escribe tu nombre o equipo:</label>
+        <input
+          id="input-nombre"
+          type="text"
+          placeholder="Ej. AIDJR05"
+          value="AIDJR05"
+        />
+        <p id="saludo-dinamico"></p>
+      </section>
+
+      <section class="card">
+        <h2>
+          El ciclo de DevOps (marca las etapas mientras las vemos en clase)
+        </h2>
+        <p id="progreso-texto"></p>
+        <div class="barra-fondo">
+          <div id="progreso-barra" class="barra-relleno"></div>
+        </div>
+        <ul id="lista-etapas" class="etapas"></ul>
+      </section>
+    </main>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
