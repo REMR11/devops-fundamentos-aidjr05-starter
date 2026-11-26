@@ -1,0 +1,47 @@
+# Borra la rama de un PR cuando se hace merge a main o dev,
+# pero solo si el nombre usa un prefijo de Conventional Commits
+# o el prefijo de Dependabot.
+# Se borran:    feat/login, fix/boton-roto, chore/deps, dependabot/npm_and_yarn/prettier-3.10.1
+# Se conservan: main, master, dev, mi-rama, prueba/algo
+name: Limpiar ramas al hacer merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main, dev]
+
+permissions:
+  contents: write
+
+jobs:
+  borrar-rama:
+    # Solo si el PR se mezcló y la rama vive en este mismo repositorio.
+    if: github.event.pull_request.merged == true && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Revisar prefijo y borrar la rama
+        env:
+          RAMA: ${{ github.event.pull_request.head.ref }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Rama mezclada: $RAMA"
+
+          case "$RAMA" in
+            main|master|dev)
+              echo "Rama protegida: se conserva."
+              exit 0
+              ;;
+          esac
+
+          PATRON='^(dependabot[/-].+|(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?[/-].+)'
+          if [[ "$RAMA" =~ $PATRON ]]; then
+            echo "Prefijo convencional o dependabot detectado: se borra la rama."
+            REF="heads/${RAMA//\//%2F}"
+            if gh api -X DELETE "repos/${{ github.repository }}/git/refs/${REF}"; then
+              echo "Rama eliminada."
+            else
+              echo "La rama ya no existía. Nada que borrar."
+            fi
+          else
+            echo "La rama no usa un prefijo convencional ni dependabot: se conserva."
+          fi
