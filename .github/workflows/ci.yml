@@ -1,0 +1,38 @@
+name: CI pruebas y build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el codigo fuente del repositorio
+        uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Instalar dependencias exactamente como el archivo de package.json
+        run: npm ci
+
+      - name: Verificar que las dependencias se han instalado correctamente
+        run: npm list
+
+      - name: Ejecutar pruebas
+        run: npm run test
+
+      - name: Ejecutar build
+        run: npm run build
