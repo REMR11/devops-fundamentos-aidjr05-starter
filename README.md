@@ -91,3 +91,7 @@ Para que el workflow `.github/workflows/deploy-pages.yml` funcione al hacer fork
 
 - **Fijar Actions por commit SHA** (en vez de `@v7`, usar el hash de 40 caracteres para evitar ataques a la cadena de suministro).
 - **Docker** para empaquetar tu app con su entorno y evitar el clásico _"en mi máquina funciona"_.
+
+
+
+Fue un gusto ser su instructor, cuiden su salud, tomen agua y sigan aprendiendo
